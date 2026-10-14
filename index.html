@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simone Cremasco · Siti e web app</title>
+<meta name="description" content="Siti, web app e piccoli strumenti su misura per attività, associazioni e progetti personali. Portfolio di Simone Cremasco.">
+<meta property="og:title" content="Simone Cremasco · Siti e web app">
+<meta property="og:description" content="Siti, web app e piccoli strumenti su misura. Progetti e contatti.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://creminem94.github.io/img/loci-home.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230d6b57%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27sans-serif%27 font-size=%2717%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3ESC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { color-scheme: light; -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* Layout: one calm column; each project is a row of "problem → what I built" text beside a browser frame waiting for its screenshot. */
+:root {
+  --bg: #f4f6f3;
+  --surface: #ffffff;
+  --ink: #1b2422;
+  --muted: #5b6863;
+  --line: #d9e0dc;
+  --accent: #0d6b57;
+  --accent-soft: #dcefe8;
+  --frame: #e8ede9;
+
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111715; --surface: #18201e; --ink: #e6ece9; --muted: #9aa8a2;
+    --line: #2a3532; --accent: #5cc7a8; --accent-soft: #1d3a32; --frame: #202a27;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111715; --surface: #18201e; --ink: #e6ece9; --muted: #9aa8a2;
+  --line: #2a3532; --accent: #5cc7a8; --accent-soft: #1d3a32; --frame: #202a27;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1040px; margin: 0 auto; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+.label {
+  font-family: var(--f-mono); font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted);
+}
+
+/* Header */
+header { padding-block: clamp(48px, 9vw, 104px) clamp(32px, 6vw, 64px); display: grid; gap: 20px; }
+header h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 700; line-height: 1.02; max-width: 15ch; }
+header h1 span { color: var(--accent); }
+.intro { max-width: 58ch; color: var(--muted); font-size: 1.15rem; }
+.status {
+  display: inline-flex; align-items: center; gap: 10px; width: fit-content;
+  font-family: var(--f-mono); font-size: 0.8rem; color: var(--ink);
+  background: var(--accent-soft); padding: 6px 12px; border-radius: 999px;
+}
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+/* Projects */
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-block: 8px 24px; border-top: 1px solid var(--line); padding-top: 28px; }
+.section-head h2 { font-size: 1.6rem; }
+.projects { display: grid; gap: 0; }
+.project {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 4vw, 56px);
+  padding-block: clamp(32px, 5vw, 56px); border-bottom: 1px solid var(--line); align-items: start;
+}
+.project:nth-child(even) .frame { order: -1; }
+.p-text { display: grid; gap: 14px; min-width: 0; }
+.p-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { font-family: var(--f-mono); font-size: 0.72rem; padding: 3px 9px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); }
+.tag.kind { border-color: var(--accent); color: var(--accent); }
+.project h3 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; line-height: 1.1; }
+.lead { font-size: 1.1rem; }
+.pair { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 4px 16px; }
+.pair dt { font-family: var(--f-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding-top: 4px; }
+.pair dd { margin: 0; }
+.pair ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.stack { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); }
+.links { display: flex; gap: 18px; flex-wrap: wrap; font-weight: 600; }
+.note { font-size: 0.92rem; color: var(--muted); }
+
+/* Browser frame placeholder */
+.frame { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; min-width: 0; box-shadow: 0 1px 2px rgba(20, 40, 34, 0.05), 0 14px 32px -18px rgba(20, 40, 34, 0.25); }
+.bar { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.dots { display: flex; gap: 5px; }
+.dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); display: block; }
+.url { font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); background: var(--frame); padding: 3px 10px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+.shot {
+  aspect-ratio: 16 / 10; max-width: 100%; display: grid; place-items: center; text-align: center; padding: 24px;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, var(--frame) 14px 15px),
+    var(--surface);
+}
+.frame img.full { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; max-width: 100%; }
+.phones { display: flex; gap: clamp(12px, 3vw, 24px); justify-content: center; align-items: flex-start; padding: clamp(16px, 4vw, 28px); background: var(--frame); aspect-ratio: 16 / 10; max-width: 100%; overflow: hidden; }
+.phones img { width: 40%; height: auto; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 10px 24px -14px rgba(20, 40, 34, 0.4); }
+.flow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; font-family: var(--f-mono); font-size: 0.85rem; }
+.flow b { font-weight: 500; background: var(--surface); border: 1px solid var(--accent); color: var(--ink); padding: 8px 12px; border-radius: 6px; }
+.flow i { font-style: normal; color: var(--accent); }
+.shot span { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); background: var(--surface); padding: 6px 10px; border: 1px dashed var(--line); border-radius: 4px; max-width: 30ch; }
+
+/* Contact */
+.contact { padding-block: clamp(48px, 8vw, 88px); display: grid; gap: 18px; }
+.contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); max-width: 20ch; }
+.contact p { color: var(--muted); max-width: 55ch; }
+.mail { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.mail code { font-family: var(--f-mono); font-size: 1rem; background: var(--surface); border: 1px solid var(--line); padding: 8px 12px; border-radius: 6px; user-select: all; }
+.mail button { font: 600 0.9rem var(--f-body); color: var(--bg); background: var(--ink); border: 0; padding: 9px 14px; border-radius: 6px; cursor: pointer; }
+footer { padding-block: 24px 40px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 760px) {
+  .project { grid-template-columns: minmax(0, 1fr); }
+  .project:nth-child(even) .frame { order: 0; }
+  .pair { grid-template-columns: minmax(0, 1fr); }
+  .pair dt { padding-top: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .frame { transition: transform .25s ease; }
+  .project:hover .frame { transform: translateY(-3px); }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="status">Disponibile per piccoli progetti</span>
+    <h1>Siti e web app <span>su misura</span> per chi ha un problema concreto.</h1>
+    <p class="intro">Sono Simone Cremasco. Sviluppo siti, piattaforme e piccoli strumenti per attività, associazioni e progetti personali. Pochi progetti alla volta, seguiti dall'idea fino alla messa online.</p>
+  </header>
+
+  <div class="section-head">
+    <h2>Progetti</h2>
+    <span class="label">6 lavori · 2024–2026</span>
+  </div>
+
+  <div class="projects">
+
+    <article class="project" id="educare">
+      <div class="p-text">
+        <div class="p-meta"><span class="tag kind">Cliente</span><span class="tag">Sito web</span></div>
+        <h3>Edu-Care with Susie</h3>
+        <p class="lead">Sito professionale per una pedagogista che lavora con famiglie ed educatori su bilinguismo e pedagogia.</p>
+        <dl class="pair">
+          <dt>Problema</dt>
+          <dd>Presentare servizi diversi a pubblici diversi, raccogliere contatti e pubblicare articoli ed eventi in autonomia.</dd>
+          <dt>Cosa ho fatto</dt>
+          <dd><ul>
+            <li>Percorsi separati per genitori ed educatori, articoli, eventi, libri consigliati.</li>
+            <li>Pannello per scrivere e pubblicare articoli senza toccare il codice.</li>
+            <li>Modulo contatti e newsletter con doppia conferma via email.</li>
+            <li>Pagine veloci e ottimizzate per Google.</li>
+          </ul></dd>
+        </dl>
+        <p class="stack">React · TypeScript · Express · PostgreSQL · Tailwind · Vercel</p>
+        <div class="links"><a href="https://edu-carewithsusie.it" target="_blank" rel="noopener">edu-carewithsusie.it ↗</a></div>
+      </div>
+      <figure class="frame" aria-label="Spazio per lo screenshot del sito Edu-Care">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">edu-carewithsusie.it</span></div>
+        <img class="full" src="img/educare-home.jpg" alt="Home page del sito Edu-Care with Susie" width="1440" height="900" loading="lazy">
+      </figure>
+    </article>
+
+    <article class="project" id="little-steps">
+      <div class="p-text">
+        <div class="p-meta"><span class="tag kind">Cliente</span><span class="tag">Web app</span><span class="tag">Area riservata</span></div>
+        <h3>Little Steps</h3>
+        <p class="lead">Piattaforma che collega un'insegnante e le famiglie: gestione della classe da un lato, portale per i genitori dall'altro.</p>
+        <dl class="pair">
+          <dt>Problema</dt>
+          <dd>Iscrizioni su carta, comunicazioni sparse tra messaggi e foto condivise in chat.</dd>
+          <dt>Cosa ho fatto</dt>
+          <dd><ul>
+            <li>Iscrizione online che l'insegnante rivede, approva e assegna a una classe.</li>
+            <li>Area insegnante con classi, eventi, flashcard e newsletter alle famiglie.</li>
+            <li>Portale genitori con accesso personale, foto e video riservati.</li>
+            <li>Test automatici e attenzione alla privacy dei minori.</li>
+          </ul></dd>
+        </dl>
+        <p class="stack">Next.js · TypeScript · Supabase · Tailwind · Vitest</p>
+        <p class="note">Area privata: le immagini mostrano dati inventati.</p>
+      </div>
+      <figure class="frame" aria-label="Spazio per il video demo di Little Steps">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">area insegnante · demo</span></div>
+        <div class="shot"><span>Area riservata con dati di minori · demo su richiesta</span></div>
+      </figure>
+    </article>
+
+    <article class="project" id="loci">
+      <div class="p-text">
+        <div class="p-meta"><span class="tag kind">Progetto personale</span><span class="tag">Sito · 3 lingue</span></div>
+        <h3>Loci</h3>
+        <p class="lead">Sito gratuito in inglese, italiano e spagnolo per imparare e allenare il metodo del palazzo della memoria.</p>
+        <dl class="pair">
+          <dt>Problema</dt>
+          <dd>Molte spiegazioni del metodo, pochi strumenti per allenarsi con costanza e senza pubblicità.</dd>
+          <dt>Cosa ho fatto</dt>
+          <dd><ul>
+            <li>Guida, allenamento con parole, numeri e carte, sfida del giorno uguale per tutti.</li>
+            <li>Livelli, missioni giornaliere e medaglie.</li>
+            <li>Nessun tracciamento: progressi nel browser o nell'account Google.</li>
+            <li>Lo spagnolo scelto dopo un'analisi su Google Trends.</li>
+          </ul></dd>
+        </dl>
+        <p class="stack">Next.js (statico) · TypeScript · CSS su misura · Supabase</p>
+        <div class="links"><a href="https://learn-loci.com" target="_blank" rel="noopener">learn-loci.com ↗</a></div>
+      </div>
+      <figure class="frame" aria-label="Home page di Loci">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">learn-loci.com/it</span></div>
+        <img class="full" src="img/loci-home.jpg" alt="Home page di Loci con il percorso delle stanze del palazzo della memoria" width="1440" height="900" loading="lazy">
+      </figure>
+    </article>
+
+    <article class="project" id="fatturazione">
+      <div class="p-text">
+        <div class="p-meta"><span class="tag kind">Strumento</span><span class="tag">Uso interno</span></div>
+        <h3>Dalle ore in Excel alla fattura elettronica</h3>
+        <p class="lead">Strumento che trasforma le ore lavorate segnate in Excel in una fattura elettronica pronta da caricare su Aruba.</p>
+        <dl class="pair">
+          <dt>Problema</dt>
+          <dd>Ogni mese decine di righe ricopiate a mano nel portale di fatturazione: lento e facile sbagliare.</dd>
+          <dt>Cosa ho fatto</dt>
+          <dd><ul>
+            <li>Incolli le righe da Excel, ottieni una riga di fattura per ciascuna con importi calcolati.</li>
+            <li>Genera l'XML nel formato della fattura elettronica, con totali e dati fiscali.</li>
+            <li>Pochi minuti invece di un pomeriggio.</li>
+          </ul></dd>
+        </dl>
+        <p class="stack">Vue 3 · TypeScript · PrimeVue · Vite</p>
+      </div>
+      <figure class="frame" aria-label="Spazio per lo schema del flusso di fatturazione">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">Excel → XML → Aruba</span></div>
+        <div class="shot"><div class="flow"><b>Righe Excel</b><i>→</i><b>Fattura XML</b><i>→</i><b>Aruba</b></div></div>
+      </figure>
+    </article>
+
+    <article class="project" id="dizionatore">
+      <div class="p-text">
+        <div class="p-meta"><span class="tag kind">Strumento</span><span class="tag">App per telefono</span></div>
+        <h3>Dizionatore</h3>
+        <p class="lead">App installabile che mostra le parole italiane con l'accento corretto, basata sul servizio di dizionatore.it.</p>
+        <dl class="pair">
+          <dt>Problema</dt>
+          <dd>Un servizio utile ma scomodo da consultare al volo dal telefono.</dd>
+          <dt>Cosa ho fatto</dt>
+          <dd><ul>
+            <li>Interfaccia pulita per il telefono, tema chiaro e scuro automatico.</li>
+            <li>Installabile sulla schermata home.</li>
+            <li>Piccolo intermediario lato server verso il servizio originale.</li>
+          </ul></dd>
+        </dl>
+        <p class="stack">HTML · CSS · JavaScript · PWA · Node.js serverless</p>
+        <div class="links"><a href="https://dizionatore.vercel.app/" target="_blank" rel="noopener">dizionatore.vercel.app ↗</a><a href="https://github.com/creminem94/dizionatore" target="_blank" rel="noopener">GitHub ↗</a></div>
+        <p class="note">Progetto non ufficiale, usa i dati di dizionatore.it.</p>
+      </div>
+      <figure class="frame" aria-label="Spazio per lo screenshot di Dizionatore">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">dizionatore.vercel.app</span></div>
+        <div class="phones">
+          <img src="img/diz-light.jpg" alt="Dizionatore su telefono, tema chiaro, con una frase analizzata" width="480" height="800" loading="lazy">
+          <img src="img/diz-dark.jpg" alt="Dizionatore su telefono, tema scuro" width="480" height="800" loading="lazy">
+        </div>
+      </figure>
+    </article>
+
+    <article class="project" id="tripblog">
+      <div class="p-text">
+        <div class="p-meta"><span class="tag kind">Progetto personale</span><span class="tag">Blog</span></div>
+        <h3>tripBlog</h3>
+        <p class="lead">Diario di viaggio giorno per giorno, a partire da due settimane in Giappone.</p>
+        <dl class="pair">
+          <dt>Problema</dt>
+          <dd>Raccontare un viaggio lungo facendo capire dove si è stati, e aggiungere foto senza pannelli di gestione.</dd>
+          <dt>Cosa ho fatto</dt>
+          <dd><ul>
+            <li>Mappe interattive del percorso e dei viaggi fatti.</li>
+            <li>Timeline per giorno con foto a ventaglio.</li>
+            <li>Le foto si aggiungono copiandole in una cartella: il sito le impagina da solo.</li>
+          </ul></dd>
+        </dl>
+        <p class="stack">Next.js · React · Tailwind · Leaflet · Motion</p>
+      </div>
+      <figure class="frame" aria-label="Spazio per il video di tripBlog">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">viaggi/giappone</span></div>
+        <div class="shot"><span>Anteprima in arrivo</span></div>
+      </figure>
+    </article>
+
+  </div>
+
+  <section class="contact" id="contatti">
+    <span class="label">Contatti</span>
+    <h2>Hai un sito da rifare o un problema da automatizzare?</h2>
+    <p>Scrivimi due righe su cosa ti serve. Ti rispondo con un'idea di come farlo e dei tempi.</p>
+    <div class="mail">
+      <code id="email">simonecremasco94@gmail.com</code>
+      <button type="button" id="copy">Copia indirizzo</button>
+    </div>
+  </section>
+
+  <footer>
+    <span class="label">Simone Cremasco</span>
+    <a href="https://github.com/creminem94" target="_blank" rel="noopener">github.com/creminem94 ↗</a>
+  </footer>
+</div>
+
+<script>
+document.getElementById("copy").addEventListener("click", function () {
+  var btn = this, text = document.getElementById("email").textContent;
+  var done = function () { btn.textContent = "Copiato"; setTimeout(function () { btn.textContent = "Copia indirizzo"; }, 1800); };
+  var select = function () { var r = document.createRange(); r.selectNodeContents(document.getElementById("email")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  try {
+    navigator.clipboard.writeText(text).then(done, select);
+  } catch (e) { select(); }
+});
+</script>
+</body>
+</html>
