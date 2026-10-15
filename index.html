@@ -114,6 +114,7 @@ header h1 span { color: var(--accent); }
     repeating-linear-gradient(135deg, transparent 0 14px, var(--frame) 14px 15px),
     var(--surface);
 }
+.frame video.full { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; max-width: 100%; background: var(--frame); }
 .frame img.full { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; max-width: 100%; }
 .phones { display: flex; gap: clamp(12px, 3vw, 24px); justify-content: center; align-items: flex-start; padding: clamp(16px, 4vw, 28px); background: var(--frame); aspect-ratio: 16 / 10; max-width: 100%; overflow: hidden; }
 .phones img { width: 40%; height: auto; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 10px 24px -14px rgba(20, 40, 34, 0.4); }
@@ -200,11 +201,14 @@ footer { padding-block: 24px 40px; border-top: 1px solid var(--line); display: f
           </ul></dd>
         </dl>
         <p class="stack">Next.js · TypeScript · Supabase · Tailwind · Vitest</p>
-        <p class="note">Area privata: le immagini mostrano dati inventati.</p>
+        <p class="note">Area privata: il video usa nomi e dati inventati.</p>
       </div>
       <figure class="frame" aria-label="Spazio per il video demo di Little Steps">
-        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">area insegnante · demo</span></div>
-        <div class="shot"><span>Area riservata con dati di minori · demo su richiesta</span></div>
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">little-steps · demo con dati inventati</span></div>
+        <video class="full" autoplay muted loop playsinline preload="metadata" poster="img/little-steps-poster.jpg" width="1280" height="800" aria-label="Demo: l'insegnante approva un'iscrizione, la bambina entra in classe e il genitore vede le flashcard">
+          <source src="img/little-steps-demo.webm" type="video/webm">
+          <source src="img/little-steps-demo.mp4" type="video/mp4">
+        </video>
       </figure>
     </article>
 
@@ -327,6 +331,9 @@ footer { padding-block: 24px 40px; border-top: 1px solid var(--line); display: f
 </div>
 
 <script>
+if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  document.querySelectorAll("video[autoplay]").forEach(function (v) { v.pause(); v.removeAttribute("autoplay"); v.controls = true; });
+}
 document.getElementById("copy").addEventListener("click", function () {
   var btn = this, text = document.getElementById("email").textContent;
   var done = function () { btn.textContent = "Copiato"; setTimeout(function () { btn.textContent = "Copia indirizzo"; }, 1800); };
